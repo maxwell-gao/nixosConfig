@@ -13,7 +13,7 @@
       modules = [
         ./hosts/x1c13/configuration.nix
         
-        nixos-hardware.nixosModules.lenovo-thinkpad-x1-carbon-13th-gen
+        nixos-hardware.nixosModules.lenovo-thinkpad-x1-13th-gen
         ({ pkgs, ... }: {
           boot.kernelPackages = pkgs.linuxPackages_latest;
           hardware.graphics = {

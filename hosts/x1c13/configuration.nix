@@ -86,11 +86,43 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-  nvim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
+  neovim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
   wget
   git
+  zsh
+  gh
   ];
+  i18n.inputMethod = {
+    enable = true;    
+    type = "fcitx5";
+    fcitx5.addons = with pkgs; [
+      kdePackages.fcitx5-chinese-addons # Plasma 6 建议用 kdePackages 下的
+      fcitx5-gtk
+      fcitx5-lua
+  ];
+  };
+  environment.sessionVariables = {
+    NIXOS_OZONE_WL = "1";
+  };
 
+  programs.zsh = {
+    enable = true;
+    enableCompletion = true;
+    autosuggestions.enable = true;
+    syntaxHighlighting.enable = true;
+    
+    promptInit = ''
+      eval "$(starship init zsh)"
+    '';
+
+    shellAliases = {
+      ll = "ls -l";
+      update = "sudo nixos-rebuild switch --flake ~/nixosConfig#thinkpad-x1c13";
+      g = "git";
+    };
+  };
+  programs.starship.enable = true;
+  users.users.max.shell = pkgs.zsh;
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
   # programs.mtr.enable = true;
@@ -117,5 +149,29 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "25.05"; # Did you read the comment?
+  
+  fonts = {
+    packages = with pkgs; [
+      noto-fonts
+      noto-fonts-cjk-sans
+      noto-fonts-cjk-serif
+      wqy_zenhei
+      wqy_microhei
+      lxgw-wenkai
+      noto-fonts-color-emoji
+      nerd-fonts.jetbrains-mono
+      nerd-fonts.fira-code
+    ];
+
+    fontconfig = {
+      enable = true;
+      defaultFonts = {
+        emoji = [ "Noto Color Emoji" ];
+        monospace = [ "JetBrainsMono Nerd Font" "Noto Sans Mono CJK SC" ];
+        sansSerif = [ "Noto Sans CJK SC" "DejaVu Sans" ];
+        serif = [ "Noto Serif CJK SC" "DejaVu Serif" ];
+      };
+    };
+  };
 
 }
