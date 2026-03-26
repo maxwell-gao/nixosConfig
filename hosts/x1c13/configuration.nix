@@ -91,6 +91,7 @@
   git
   zsh
   gh
+  starship
   ];
   i18n.inputMethod = {
     enable = true;    
@@ -121,7 +122,6 @@
       g = "git";
     };
   };
-  programs.starship.enable = true;
   users.users.max.shell = pkgs.zsh;
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.
