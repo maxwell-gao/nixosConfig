@@ -92,12 +92,25 @@
   zsh
   gh
   starship
+  feishu
+  mihomo
+  clash-verge-rev 
+  gruvbox-plus-icons  
+  gruvbox-gtk-theme  
   ];
+
+  security.wrappers.clash-verge = {
+    owner = "root";
+    group = "root";
+    capabilities = "cap_net_bind_service,cap_net_admin+ep";
+    source = "${pkgs.clash-verge-rev}/bin/clash-verge";
+  };
+
   i18n.inputMethod = {
     enable = true;    
     type = "fcitx5";
     fcitx5.addons = with pkgs; [
-      kdePackages.fcitx5-chinese-addons # Plasma 6 建议用 kdePackages 下的
+      kdePackages.fcitx5-chinese-addons 
       fcitx5-gtk
       fcitx5-lua
   ];
