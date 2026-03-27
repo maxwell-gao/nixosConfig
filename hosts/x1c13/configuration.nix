@@ -71,10 +71,6 @@
     isNormalUser = true;
     description = "Max";
     extraGroups = [ "networkmanager" "wheel" ];
-    packages = with pkgs; [
-      kdePackages.kate
-    #  thunderbird
-    ];
   };
 
   # Install firefox.
@@ -83,28 +79,25 @@
   # Allow unfree packages
   nixpkgs.config.allowUnfree = true;
 
+  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-  neovim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
-  wget
-  git
-  zsh
-  gh
-  starship
-  feishu
   mihomo
-  clash-verge-rev 
-  gruvbox-plus-icons  
-  gruvbox-gtk-theme  
   ];
 
-  security.wrappers.clash-verge = {
-    owner = "root";
-    group = "root";
-    capabilities = "cap_net_bind_service,cap_net_admin+ep";
-    source = "${pkgs.clash-verge-rev}/bin/clash-verge";
+  boot.kernelModules = [ "tun" ];
+
+  programs.clash-verge = {
+    enable = true;
+    package = pkgs.clash-verge-rev;
+    autoStart = true; # 随系统启动
+    tunMode = true; 
   };
+
+  # 4. 确保防火墙允许 TUN 流量（或者直接关闭测试）
+  networking.firewall.checkReversePath = false; # 解决 TUN 模式下流量不通的问题
 
   i18n.inputMethod = {
     enable = true;    
@@ -115,25 +108,9 @@
       fcitx5-lua
   ];
   };
-  environment.sessionVariables = {
-    NIXOS_OZONE_WL = "1";
-  };
 
   programs.zsh = {
     enable = true;
-    enableCompletion = true;
-    autosuggestions.enable = true;
-    syntaxHighlighting.enable = true;
-    
-    promptInit = ''
-      eval "$(starship init zsh)"
-    '';
-
-    shellAliases = {
-      ll = "ls -l";
-      update = "sudo nixos-rebuild switch --flake ~/nixosConfig#thinkpad-x1c13";
-      g = "git";
-    };
   };
   users.users.max.shell = pkgs.zsh;
   # Some programs need SUID wrappers, can be configured further or are
