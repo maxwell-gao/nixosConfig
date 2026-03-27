@@ -1,6 +1,6 @@
 # nixosConfig
 
-A multi-host NixOS flake repository, currently containing:
+Maxwell's multi-host NixOS flake repository, currently containing:
 
 - `thinkpad-x1c13`: physical laptop configuration
 - `nixos-wsl`: WSL configuration
