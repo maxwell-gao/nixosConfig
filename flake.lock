@@ -1,5 +1,21 @@
 {
   "nodes": {
+    "flake-compat": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1767039857,
+        "narHash": "sha256-vNpUSpF5Nuw8xvDLj2KCwwksIbjua2LZCqhV1LNRDns=",
+        "owner": "edolstra",
+        "repo": "flake-compat",
+        "rev": "5edf11c44bc78a0d334f6334cdaf7d60d732daab",
+        "type": "github"
+      },
+      "original": {
+        "owner": "edolstra",
+        "repo": "flake-compat",
+        "type": "github"
+      }
+    },
     "home-manager": {
       "inputs": {
         "nixpkgs": [
@@ -23,40 +39,63 @@
     },
     "nixos-hardware": {
       "locked": {
-        "lastModified": 1774465523,
-        "narHash": "sha256-4v7HPm63Q90nNn4fgkgKsjW1AH2Klw7XzPtHJr562nM=",
-        "owner": "NixOS",
-        "repo": "nixos-hardware",
-        "rev": "de895be946ad1d8aafa0bb6dfc7e7e0e9e466a29",
-        "type": "github"
+        "lastModified": 1774567711,
+        "narHash": "sha256-uVlOHBvt6Vc/iYNJXLPa4c3cLXwMllOCVfAaLAcphIo=",
+        "ref": "master",
+        "rev": "3f6f874dfc34d386d10e434c48ad966c4832243e",
+        "revCount": 2656,
+        "type": "git",
+        "url": "https://github.com/NixOS/nixos-hardware"
       },
       "original": {
-        "owner": "NixOS",
         "ref": "master",
-        "repo": "nixos-hardware",
-        "type": "github"
+        "type": "git",
+        "url": "https://github.com/NixOS/nixos-hardware"
+      }
+    },
+    "nixos-wsl": {
+      "inputs": {
+        "flake-compat": "flake-compat",
+        "nixpkgs": [
+          "nixpkgs"
+        ]
+      },
+      "locked": {
+        "lastModified": 1773882647,
+        "narHash": "sha256-VzcOcE0LLpEnyoxLuMuptZ9ZWCkSBn99bTgEQoz5Viw=",
+        "ref": "main",
+        "rev": "fd0eae98d1ecee31024271f8d64676250a386ee7",
+        "revCount": 750,
+        "type": "git",
+        "url": "https://github.com/nix-community/NixOS-WSL"
+      },
+      "original": {
+        "ref": "main",
+        "type": "git",
+        "url": "https://github.com/nix-community/NixOS-WSL"
       }
     },
     "nixpkgs": {
       "locked": {
         "lastModified": 1774386573,
         "narHash": "sha256-4hAV26quOxdC6iyG7kYaZcM3VOskcPUrdCQd/nx8obc=",
-        "owner": "nixos",
-        "repo": "nixpkgs",
+        "ref": "nixos-unstable",
         "rev": "46db2e09e1d3f113a13c0d7b81e2f221c63b8ce9",
-        "type": "github"
+        "revCount": 969196,
+        "type": "git",
+        "url": "https://github.com/nixos/nixpkgs"
       },
       "original": {
-        "owner": "nixos",
         "ref": "nixos-unstable",
-        "repo": "nixpkgs",
-        "type": "github"
+        "type": "git",
+        "url": "https://github.com/nixos/nixpkgs"
       }
     },
     "root": {
       "inputs": {
         "home-manager": "home-manager",
         "nixos-hardware": "nixos-hardware",
+        "nixos-wsl": "nixos-wsl",
         "nixpkgs": "nixpkgs"
       }
     }
