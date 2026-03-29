@@ -29,6 +29,7 @@ in
     kdePackages.kate
     llvm
     llvmPackages.stdenv
+    lazygit
     neovim
     pandoc
     starship
@@ -39,6 +40,7 @@ in
     wget
     ripgrep
     zed-editor
+    zellij
   ];
 
   home.sessionVariables = {
