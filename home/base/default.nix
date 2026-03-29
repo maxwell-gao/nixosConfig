@@ -46,6 +46,7 @@ in
     uv
     wget
     ripgrep
+    yazi
     zellij
   ];
 

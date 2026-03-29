@@ -13,6 +13,7 @@
     plugins = {
       lualine.enable = true;
       web-devicons.enable = true;
+      neo-tree.enable = true;
       which-key.enable = true;
       nvim-autopairs.enable = true;
       comment.enable = true;

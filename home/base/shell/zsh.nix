@@ -33,6 +33,7 @@
     shellAliases = {
       ll = "ls -l";
       g = "git";
+      vim = "nvim";
     };
   };
 }
