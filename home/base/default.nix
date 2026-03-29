@@ -17,6 +17,8 @@ in
     ./shell
   ];
 
+  xdg.enable = true;
+
   home.packages = with pkgs; [
     cmake
     delve
