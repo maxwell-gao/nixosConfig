@@ -2,7 +2,7 @@
 
 {
   imports = [
-    ../../home/base.nix
+    ../../home/base/default.nix
     ../../home/darwin.nix
   ];
 
@@ -10,5 +10,9 @@
   home.homeDirectory = "/Users/max";
   home.stateVersion = "25.05";
 
-  programs.zsh.shellAliases.update = "darwin-rebuild switch --flake ~/nixosConfig#darwin";
+  my.rebuild = {
+    enable = true;
+    kind = "darwin";
+    target = "darwin";
+  };
 }
