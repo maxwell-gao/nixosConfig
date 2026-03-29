@@ -9,6 +9,7 @@
     kdePackages.kate
     vscode
     zed-editor
+    zotero
   ];
 
   home.sessionVariables = {
