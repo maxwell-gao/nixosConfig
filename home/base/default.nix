@@ -34,7 +34,6 @@ in
     llvm
     llvmPackages.stdenv
     lazygit
-    neovim
     pandoc
     nh
     rust-analyzer
