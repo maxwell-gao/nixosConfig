@@ -37,6 +37,7 @@ in
     uv
     vscode
     wget
+    ripgrep
     zed-editor
   ];
 

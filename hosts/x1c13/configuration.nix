@@ -92,21 +92,23 @@
   programs.clash-verge = {
     enable = true;
     package = pkgs.clash-verge-rev;
-    autoStart = true; # 随系统启动
+    autoStart = true;
     tunMode = true; 
   };
 
-  # 4. 确保防火墙允许 TUN 流量（或者直接关闭测试）
   networking.firewall.checkReversePath = false; # 解决 TUN 模式下流量不通的问题
 
   i18n.inputMethod = {
     enable = true;    
     type = "fcitx5";
-    fcitx5.addons = with pkgs; [
-      kdePackages.fcitx5-chinese-addons 
-      fcitx5-gtk
-      fcitx5-lua
-  ];
+    fcitx5 = {
+      waylandFrontend = true;
+      addons = with pkgs; [
+        kdePackages.fcitx5-chinese-addons
+        fcitx5-gtk
+        fcitx5-lua
+      ];
+    };
   };
 
   programs.zsh = {
