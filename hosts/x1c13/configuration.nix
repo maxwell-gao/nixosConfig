@@ -98,19 +98,6 @@
 
   networking.firewall.checkReversePath = false; # 解决 TUN 模式下流量不通的问题
 
-  i18n.inputMethod = {
-    enable = true;    
-    type = "fcitx5";
-    fcitx5 = {
-      waylandFrontend = true;
-      addons = with pkgs; [
-        kdePackages.fcitx5-chinese-addons
-        fcitx5-gtk
-        fcitx5-lua
-      ];
-    };
-  };
-
   programs.zsh = {
     enable = true;
   };
