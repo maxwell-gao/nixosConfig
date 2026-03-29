@@ -18,9 +18,17 @@
       url = "git+https://github.com/nix-community/home-manager?ref=master";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    codex-cli-nix = {
+      url = "github:sadjow/codex-cli-nix";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    nixvim = {
+      url = "github:nix-community/nixvim";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, nix-darwin, nixos-hardware, nixos-wsl, home-manager, ... }@inputs: {
+  outputs = { self, nixpkgs, nix-darwin, nixos-hardware, nixos-wsl, home-manager, codex-cli-nix, nixvim, ... }@inputs: {
     nixosConfigurations = {
       thinkpad-x1c13 = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
