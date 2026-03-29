@@ -2,7 +2,7 @@
 
 {
   imports = [
-    ../../home.nix
+    ../../home/base.nix
   ];
 
   home.username = "nixos";

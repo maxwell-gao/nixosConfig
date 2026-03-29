@@ -14,19 +14,14 @@ in
     cmake
     delve
     direnv
-    feishu
     gcc
     gh
-    ghostty
     git
     gnumake
     go
     gopls
     gotools
     gdk
-    gruvbox-gtk-theme
-    gruvbox-plus-icons
-    kdePackages.kate
     llvm
     llvmPackages.stdenv
     lazygit
@@ -36,16 +31,10 @@ in
     texlive.combined.scheme-full
     unzip
     uv
-    vscode
     wget
     ripgrep
-    zed-editor
     zellij
   ];
-
-  home.sessionVariables = {
-    NIXOS_OZONE_WL = "1";
-  };
 
   programs.home-manager.enable = true;
 

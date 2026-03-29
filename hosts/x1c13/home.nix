@@ -2,7 +2,7 @@
 
 {
   imports = [
-    ../../home.nix
+    ../../home
   ];
 
   home.username = "max";

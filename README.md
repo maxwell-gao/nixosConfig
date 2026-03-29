@@ -4,6 +4,7 @@ Maxwell's multi-host NixOS flake repository, currently containing:
 
 - `thinkpad-x1c13`: physical laptop configuration
 - `nixos-wsl`: WSL configuration
+- `darwin`: nix-darwin skeleton for macOS hosts
 
 ## Directory Structure
 
@@ -11,8 +12,15 @@ Maxwell's multi-host NixOS flake repository, currently containing:
 .
 ├── flake.nix
 ├── flake.lock
-├── home.nix
+├── home
+│   ├── base.nix
+│   ├── default.nix
+│   ├── darwin.nix
+│   └── gui.nix
 └── hosts
+    ├── darwin
+    │   ├── configuration.nix
+    │   └── home.nix
     ├── wsl
     │   ├── configuration.nix
     │   └── home.nix
@@ -22,28 +30,31 @@ Maxwell's multi-host NixOS flake repository, currently containing:
         └── home.nix
 ```
 
-    ## Design Notes
+## Design Notes
 
-    - The top-level `home.nix` contains shared Home Manager configuration
-    - Each host-specific `hosts/<name>/home.nix` only contains user identity and a small amount of host-specific differences
-    - Each host-specific `hosts/<name>/configuration.nix` contains system-level configuration
+- `home/base.nix` contains shared headless/base Home Manager configuration
+- `home/gui.nix` contains Linux GUI-oriented packages and environment variables
+- `home/darwin.nix` is reserved for Darwin-specific Home Manager additions
+- `home/default.nix` composes `base + gui` for GUI-capable Linux machines
+- Each host-specific `hosts/<name>/home.nix` only contains user identity and a small amount of host-specific differences
+- Each host-specific `hosts/<name>/configuration.nix` contains system-level configuration
 
-    ## Flake Input Strategy
+## Flake Input Strategy
 
-    To reduce the impact of GitHub API rate limits on `nix flake` as much as possible, the top-level flake inputs in this repository use the `git+https` form instead of the `github:` shorthand.
+To reduce the impact of GitHub API rate limits on `nix flake` as much as possible, the top-level flake inputs in this repository use the `git+https` form instead of the `github:` shorthand.
 
-    Current top-level inputs:
+Current top-level inputs:
 
 - `nixpkgs`
 - `home-manager`
 - `nixos-hardware`
 - `nixos-wsl`
 
-    Note: one of `nixos-wsl`'s upstream dependencies is `flake-compat`, which is defined by that upstream project and still appears as a `github` type. The top-level inputs in this repository have already been unified, but this kind of transitive dependency cannot be fully removed without overriding the upstream dependency graph.
+Note: one of `nixos-wsl`'s upstream dependencies is `flake-compat`, which is defined by that upstream project and still appears as a `github` type. The top-level inputs in this repository have already been unified, but this kind of transitive dependency cannot be fully removed without overriding the upstream dependency graph.
 
-    ## Common Commands
+## Common Commands
 
-    When using this on a new machine for the first time, if flakes are not enabled yet:
+When using this on a new machine for the first time, if flakes are not enabled yet:
 
 ```bash
 NIX_CONFIG="experimental-features = nix-command flakes" sudo nixos-rebuild switch --flake ~/nixosConfig#thinkpad-x1c13
@@ -61,6 +72,12 @@ WSL:
 sudo nixos-rebuild switch --flake ~/nixosConfig#nixos-wsl
 ```
 
+Darwin:
+
+```bash
+darwin-rebuild switch --flake ~/nixosConfig#darwin
+```
+
 Update the lock file:
 
 ```bash
@@ -75,16 +92,23 @@ nix flake check
 
 ## Home Manager Reuse Pattern
 
-The shared configuration lives in the top-level `home.nix`:
+The shared configuration is split by capability:
 
-- Common development tools
-- Common zsh base configuration
-- `starship`
-- Common environment variables
+- `home/base.nix`: common CLI/development tools and shell setup for headless systems, WSL, and servers
+- `home/gui.nix`: Linux GUI packages for desktop/laptop machines
+- `home/darwin.nix`: a Darwin-specific layer for future macOS hosts; currently reserved and not yet wired into `nix-darwin`
+- `home/default.nix`: the default GUI Linux composition used by the laptop host
 
 Examples of the host-specific wrappers:
 
-- `hosts/x1c13/home.nix` binds the user `max`
-- `hosts/wsl/home.nix` binds the user `nixos`
+- `hosts/x1c13/home.nix` imports `../../home` to get `base + gui`
+- `hosts/wsl/home.nix` imports `../../home/base.nix` to stay headless
+- `hosts/darwin/home.nix` imports `../../home/base.nix` and `../../home/darwin.nix`
 
-This allows the same Home Manager configuration to be reused while still preserving each machine's own username, home path, and aliases.
+This allows the same Home Manager repository to be reused while keeping GUI packages off WSL and server-style hosts.
+
+## Darwin Notes
+
+- The current Darwin host is a skeleton named `darwin`
+- It is configured for `aarch64-darwin`; change this in `flake.nix` if your Mac is Intel
+- `home/darwin.nix` is intentionally minimal right now and does not manage `vscode` or `zed`

@@ -3,6 +3,10 @@
 
   inputs = {
     nixpkgs.url = "git+https://github.com/nixos/nixpkgs?ref=nixos-unstable";
+    nix-darwin = {
+      url = "git+https://github.com/nix-darwin/nix-darwin?ref=master";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nixos-hardware = {
       url = "git+https://github.com/NixOS/nixos-hardware?ref=master";
     };
@@ -16,7 +20,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, nixos-hardware, nixos-wsl, home-manager, ... }@inputs: {
+  outputs = { self, nixpkgs, nix-darwin, nixos-hardware, nixos-wsl, home-manager, ... }@inputs: {
     nixosConfigurations = {
       thinkpad-x1c13 = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
@@ -56,6 +60,24 @@
             home-manager.backupFileExtension = "hm-backup";
             home-manager.extraSpecialArgs = { inherit inputs; };
             home-manager.users.nixos = import ./hosts/wsl/home.nix;
+          }
+        ];
+      };
+    };
+
+    darwinConfigurations = {
+      darwin = nix-darwin.lib.darwinSystem {
+        system = "aarch64-darwin";
+        specialArgs = { inherit inputs; };
+        modules = [
+          ./hosts/darwin/configuration.nix
+          home-manager.darwinModules.home-manager
+          {
+            home-manager.useGlobalPkgs = true;
+            home-manager.useUserPackages = true;
+            home-manager.backupFileExtension = "hm-backup";
+            home-manager.extraSpecialArgs = { inherit inputs; };
+            home-manager.users.max = import ./hosts/darwin/home.nix;
           }
         ];
       };
