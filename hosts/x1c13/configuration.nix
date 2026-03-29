@@ -93,7 +93,7 @@
     enable = true;
     package = pkgs.clash-verge-rev;
     autoStart = true;
-    tunMode = true; 
+    tunMode = true;
   };
 
   networking.firewall.checkReversePath = false; # 解决 TUN 模式下流量不通的问题
@@ -128,7 +128,7 @@
   # Before changing this value read the documentation for this option
   # (e.g. man configuration.nix or on https://nixos.org/nixos/options.html).
   system.stateVersion = "25.05"; # Did you read the comment?
-  
+
   fonts = {
     packages = with pkgs; [
       noto-fonts
@@ -140,13 +140,15 @@
       noto-fonts-color-emoji
       nerd-fonts.jetbrains-mono
       nerd-fonts.fira-code
+      nerd-fonts.ubuntu
+      nerd-fonts.zedmono
     ];
 
     fontconfig = {
       enable = true;
       defaultFonts = {
         emoji = [ "Noto Color Emoji" ];
-        monospace = [ "JetBrainsMono Nerd Font" "Noto Sans Mono CJK SC" ];
+        monospace = [ "ubuntu Nerd Font" "Noto Sans Mono CJK SC" ];
         sansSerif = [ "Noto Sans CJK SC" "DejaVu Sans" ];
         serif = [ "Noto Serif CJK SC" "DejaVu Serif" ];
       };
