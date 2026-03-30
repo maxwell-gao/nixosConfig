@@ -37,7 +37,7 @@ in
     lazygit
     pandoc
     nh
-    neofetch
+    fastfetch
     rust-analyzer
     rustc
     cargo
