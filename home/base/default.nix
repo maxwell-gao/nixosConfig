@@ -20,6 +20,7 @@ in
   xdg.enable = true;
 
   home.packages = with pkgs; [
+    bottom
     cmake
     delve
     direnv
@@ -36,6 +37,7 @@ in
     lazygit
     pandoc
     nh
+    neofetch
     rust-analyzer
     rustc
     cargo
