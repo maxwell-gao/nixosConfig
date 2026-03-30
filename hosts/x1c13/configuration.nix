@@ -147,7 +147,7 @@
       enable = true;
       defaultFonts = {
         emoji = [ "Noto Color Emoji" ];
-        monospace = [ "ubuntu Nerd Font" "Noto Sans Mono CJK SC" ];
+        monospace = [ "UbuntuMono Nerd Font" "JetBrainsMono Nerd Font" "Noto Sans Mono CJK SC" ];
         sansSerif = [ "Noto Sans CJK SC" "DejaVu Sans" ];
         serif = [ "Noto Serif CJK SC" "DejaVu Serif" ];
       };

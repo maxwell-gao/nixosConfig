@@ -1,4 +1,7 @@
 { ... }:
 
 {
+	imports = [
+		./gui/ghostty.nix
+	];
 }
