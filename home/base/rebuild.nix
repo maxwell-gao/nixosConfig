@@ -8,6 +8,8 @@ let
   subcommand =
     if cfg.kind == "darwin" then
       "darwin"
+    else if cfg.kind == "home" then
+      "home"
     else
       "os";
 
@@ -21,13 +23,14 @@ in
     enable = mkEnableOption "host-aware rebuild aliases powered by nh";
 
     kind = mkOption {
-      type = types.enum [ "nixos" "darwin" ];
+      type = types.enum [ "nixos" "darwin" "home" ];
       example = "nixos";
       description = ''
         The platform kind for rebuild commands.
 
         - `"nixos"` generates `nh os ...`
         - `"darwin"` generates `nh darwin ...`
+        - `"home"` generates `nh home ...`
       '';
     };
 

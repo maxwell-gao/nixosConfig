@@ -107,6 +107,35 @@ Examples of the host-specific wrappers:
 
 This allows the same Home Manager repository to be reused while keeping GUI packages off WSL and server-style hosts.
 
+## Use `base` On Non-NixOS Machines
+
+`base` is now exposed directly as a standalone Home Manager target, so on a non-NixOS Linux machine you can apply the shared headless configuration without creating a wrapper host first.
+
+Apply it with:
+
+```bash
+home-manager switch --impure --flake ~/nixosConfig#base
+```
+
+Why `--impure` is required:
+
+- `homeConfigurations.base` reads the current machine's `USER`, `HOME`, and system architecture during evaluation.
+- That keeps `base` itself generic, instead of forcing every non-NixOS machine to add its own `hosts/<name>/home.nix` wrapper.
+
+What this gives you:
+
+- `home/base/default.nix` as the reusable shared CLI/development layer
+- automatic `home.username = $USER`
+- automatic `home.homeDirectory = $HOME`
+- automatic package selection for the current Linux architecture
+
+Notes:
+
+- `home/default.nix` is still `base + gui`, intended for Linux machines with a desktop session.
+- `home/base/default.nix` remains the safer entrypoint for servers, WSL, and generic non-NixOS Linux.
+- The direct `#base` target intentionally does not enable `my.rebuild`, because a generic entry cannot safely assume where the repository is cloned on every machine.
+- If you want local overrides on top of `base`, add your own `homeConfigurations.<name>` later and import `self.homeManagerModules.base` there.
+
 ## Darwin Notes
 
 - The current Darwin host is a skeleton named `darwin`
