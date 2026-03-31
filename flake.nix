@@ -3,6 +3,10 @@
 
   inputs = {
     nixpkgs.url = "git+https://github.com/nixos/nixpkgs?ref=nixos-unstable";
+    dms = {
+      url = "git+https://github.com/AvengeMedia/DankMaterialShell?ref=stable";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nix-darwin = {
       url = "git+https://github.com/nix-darwin/nix-darwin?ref=master";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -26,15 +30,20 @@
       url = "github:nix-community/nixvim";
       inputs.nixpkgs.follows = "nixpkgs";
     };
+    niri = {
+      url = "git+https://github.com/sodiboo/niri-flake?ref=main";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
   };
 
-  outputs = { self, nixpkgs, nix-darwin, nixos-hardware, nixos-wsl, home-manager, codex-cli-nix, nixvim, ... }@inputs: {
+  outputs = { self, nixpkgs, dms, nix-darwin, nixos-hardware, nixos-wsl, home-manager, codex-cli-nix, nixvim, niri, ... }@inputs: {
     nixosConfigurations = {
       thinkpad-x1c13 = nixpkgs.lib.nixosSystem {
         system = "x86_64-linux";
         specialArgs = { inherit inputs; };
         modules = [
           ./hosts/x1c13/configuration.nix
+          niri.nixosModules.niri
           home-manager.nixosModules.home-manager
           {
             home-manager.useGlobalPkgs = true;
