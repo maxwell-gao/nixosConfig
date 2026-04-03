@@ -1,7 +1,7 @@
 { ... }:
 
 {
-	imports = [
-		./gui/ghostty.nix
-	];
+  imports = [
+    ./gui/ghostty.nix
+  ];
 }

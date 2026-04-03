@@ -37,107 +37,108 @@
   };
 
   outputs = { self, nixpkgs, noctalia, nix-darwin, nixos-hardware, nixos-wsl, home-manager, codex-cli-nix, nixvim, niri, ... }@inputs:
-  let
-    standaloneBaseSystem =
-      if builtins ? currentSystem then
-        builtins.currentSystem
-      else
-        throw "homeConfigurations.base requires --impure so Nix can detect the current system";
+    let
+      standaloneBaseSystem =
+        if builtins ? currentSystem then
+          builtins.currentSystem
+        else
+          throw "homeConfigurations.base requires --impure so Nix can detect the current system";
 
-    standaloneBaseUser = builtins.getEnv "USER";
-    standaloneBaseHome = builtins.getEnv "HOME";
+      standaloneBaseUser = builtins.getEnv "USER";
+      standaloneBaseHome = builtins.getEnv "HOME";
 
-    standaloneBaseIdentityModule =
-      if standaloneBaseUser == "" || standaloneBaseHome == "" then
-        throw "homeConfigurations.base requires USER and HOME to be set; run Home Manager with --impure"
-      else
-        {
-          home.username = standaloneBaseUser;
-          home.homeDirectory = standaloneBaseHome;
-          home.stateVersion = "25.05";
+      standaloneBaseIdentityModule =
+        if standaloneBaseUser == "" || standaloneBaseHome == "" then
+          throw "homeConfigurations.base requires USER and HOME to be set; run Home Manager with --impure"
+        else
+          {
+            home.username = standaloneBaseUser;
+            home.homeDirectory = standaloneBaseHome;
+            home.stateVersion = "25.05";
+          };
+    in
+    {
+      homeManagerModules = {
+        base = ./home/base/default.nix;
+        default = ./home/default.nix;
+        darwin = ./home/darwin.nix;
+        gui = ./home/gui/default.nix;
+      };
+
+      homeConfigurations = {
+        base = home-manager.lib.homeManagerConfiguration {
+          pkgs = import nixpkgs {
+            system = standaloneBaseSystem;
+          };
+          extraSpecialArgs = { inherit inputs; };
+          modules = [
+            self.homeManagerModules.base
+            standaloneBaseIdentityModule
+          ];
         };
-  in {
-    homeManagerModules = {
-      base = ./home/base/default.nix;
-      default = ./home/default.nix;
-      darwin = ./home/darwin.nix;
-      gui = ./home/gui/default.nix;
-    };
+      };
 
-    homeConfigurations = {
-      base = home-manager.lib.homeManagerConfiguration {
-        pkgs = import nixpkgs {
-          system = standaloneBaseSystem;
+      nixosConfigurations = {
+        thinkpad-x1c13 = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          specialArgs = { inherit inputs; };
+          modules = [
+            ./hosts/x1c13/configuration.nix
+            niri.nixosModules.niri
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.backupFileExtension = "hm-backup";
+              home-manager.extraSpecialArgs = { inherit inputs; };
+              home-manager.users.max = import ./hosts/x1c13/home.nix;
+            }
+
+            nixos-hardware.nixosModules.lenovo-thinkpad-x1-13th-gen
+            ({ pkgs, ... }: {
+              boot.kernelPackages = pkgs.linuxPackages_latest;
+              hardware.graphics = {
+                enable = true;
+                enable32Bit = true;
+              };
+            })
+          ];
         };
-        extraSpecialArgs = { inherit inputs; };
-        modules = [
-          self.homeManagerModules.base
-          standaloneBaseIdentityModule
-        ];
+
+        nixos-wsl = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          specialArgs = { inherit inputs; };
+          modules = [
+            ./hosts/wsl/configuration.nix
+            nixos-wsl.nixosModules.default
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.backupFileExtension = "hm-backup";
+              home-manager.extraSpecialArgs = { inherit inputs; };
+              home-manager.users.nixos = import ./hosts/wsl/home.nix;
+            }
+          ];
+        };
+      };
+
+      darwinConfigurations = {
+        darwin = nix-darwin.lib.darwinSystem {
+          system = "aarch64-darwin";
+          specialArgs = { inherit inputs; };
+          modules = [
+            ./hosts/darwin/configuration.nix
+            home-manager.darwinModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.backupFileExtension = "hm-backup";
+              home-manager.extraSpecialArgs = { inherit inputs; };
+              home-manager.users.max = import ./hosts/darwin/home.nix;
+            }
+          ];
+        };
       };
     };
-
-    nixosConfigurations = {
-      thinkpad-x1c13 = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs = { inherit inputs; };
-        modules = [
-          ./hosts/x1c13/configuration.nix
-          niri.nixosModules.niri
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.backupFileExtension = "hm-backup";
-            home-manager.extraSpecialArgs = { inherit inputs; };
-            home-manager.users.max = import ./hosts/x1c13/home.nix;
-          }
-
-          nixos-hardware.nixosModules.lenovo-thinkpad-x1-13th-gen
-          ({ pkgs, ... }: {
-            boot.kernelPackages = pkgs.linuxPackages_latest;
-            hardware.graphics = {
-              enable = true;
-              enable32Bit = true;
-            };
-          })
-        ];
-      };
-
-      nixos-wsl = nixpkgs.lib.nixosSystem {
-        system = "x86_64-linux";
-        specialArgs = { inherit inputs; };
-        modules = [
-          ./hosts/wsl/configuration.nix
-          nixos-wsl.nixosModules.default
-          home-manager.nixosModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.backupFileExtension = "hm-backup";
-            home-manager.extraSpecialArgs = { inherit inputs; };
-            home-manager.users.nixos = import ./hosts/wsl/home.nix;
-          }
-        ];
-      };
-    };
-
-    darwinConfigurations = {
-      darwin = nix-darwin.lib.darwinSystem {
-        system = "aarch64-darwin";
-        specialArgs = { inherit inputs; };
-        modules = [
-          ./hosts/darwin/configuration.nix
-          home-manager.darwinModules.home-manager
-          {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.backupFileExtension = "hm-backup";
-            home-manager.extraSpecialArgs = { inherit inputs; };
-            home-manager.users.max = import ./hosts/darwin/home.nix;
-          }
-        ];
-      };
-    };
-  };
 }

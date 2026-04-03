@@ -6,7 +6,8 @@
 
 {
   imports =
-    [ # Include the results of the hardware scan.
+    [
+      # Include the results of the hardware scan.
       ./hardware-configuration.nix
     ];
 
@@ -30,9 +31,22 @@
   # Select internationalisation properties.
   i18n.defaultLocale = "en_HK.UTF-8";
 
+  # Enable fcitx5 for Simplified Chinese input
+  i18n.inputMethod = {
+    type = "fcitx5";
+    enable = true;
+    fcitx5.addons = with pkgs; [
+      qt6Packages.fcitx5-chinese-addons
+      fcitx5-gtk
+      fcitx5-nord
+    ];
+  };
+
   # Enable the X11 windowing system.
   # You can disable this if you're only using the Wayland session.
   services.xserver.enable = true;
+
+
 
   # Keep SDDM as the login manager, but use Niri as the desktop session.
   services.displayManager.sddm.enable = true;
@@ -98,8 +112,9 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
-  mihomo
-  xdg-desktop-portal-gtk
+    mihomo
+    xdg-desktop-portal-gtk
+    xwayland-satellite
   ];
 
   boot.kernelModules = [ "tun" ];

@@ -45,6 +45,7 @@ in
     rustfmt
     texlive.combined.scheme-full
     unzip
+    opencode
     uv
     wget
     ripgrep
