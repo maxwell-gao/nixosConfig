@@ -1,6 +1,10 @@
-{ ... }:
+{ pkgs, ... }:
 
 {
+  imports = [
+    ./bind.nix
+  ];
+
   programs.niri.settings = {
     prefer-no-csd = true;
 
