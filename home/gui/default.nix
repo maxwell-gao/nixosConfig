@@ -3,6 +3,7 @@
 {
   imports = [
     ./ghostty.nix
+    ./niri.nix
     inputs.noctalia.homeModules.default
   ];
 
@@ -35,6 +36,8 @@
       colorSchemes = {
         darkMode = true;
         useWallpaperColors = false;
+        predefinedScheme = "Gruvbox";
+        syncGsettings = true;
       };
     };
   };

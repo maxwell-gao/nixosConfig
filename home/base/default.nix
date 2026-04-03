@@ -32,6 +32,7 @@ in
     gopls
     gotools
     gdk
+    jq
     llvm
     llvmPackages.stdenv
     lazygit
