@@ -23,9 +23,7 @@
       zstyle ':completion:*' list-packed false
       zstyle ':completion:*' list-separator ' '
       zstyle ':completion:*' matcher-list \
-        'm:{a-z}={A-Z}' \
-        'r:|[._-]=* r:|=*' \
-        'l:|=* r:|=*'
+        'm:{a-z}={A-Z}'
       zstyle ':completion:*' original true
       zstyle ':completion:*' rehash true
       zstyle ':completion:*' select-prompt '%SScrolling active: current selection at %p%s'

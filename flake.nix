@@ -3,10 +3,6 @@
 
   inputs = {
     nixpkgs.url = "git+https://github.com/nixos/nixpkgs?ref=nixos-unstable";
-    dms = {
-      url = "git+https://github.com/AvengeMedia/DankMaterialShell?ref=stable";
-      inputs.nixpkgs.follows = "nixpkgs";
-    };
     nix-darwin = {
       url = "git+https://github.com/nix-darwin/nix-darwin?ref=master";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -36,7 +32,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, dms, nix-darwin, nixos-hardware, nixos-wsl, home-manager, codex-cli-nix, nixvim, niri, ... }@inputs:
+  outputs = { self, nixpkgs, nix-darwin, nixos-hardware, nixos-wsl, home-manager, codex-cli-nix, nixvim, niri, ... }@inputs:
   let
     standaloneBaseSystem =
       if builtins ? currentSystem then
