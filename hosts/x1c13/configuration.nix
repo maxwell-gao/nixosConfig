@@ -38,6 +38,20 @@
   services.displayManager.sddm.enable = true;
   programs.niri.enable = true;
 
+  xdg.portal = {
+    enable = true;
+    xdgOpenUsePortal = true;
+    extraPortals = with pkgs; [ xdg-desktop-portal-gtk ];
+  };
+
+  security.polkit.enable = true;
+  services.gnome.gnome-keyring.enable = true;
+  services.gvfs.enable = true;
+  services.udisks2.enable = true;
+  services.upower.enable = true;
+
+  programs.seahorse.enable = true;
+
   # Configure keymap in X11
   services.xserver.xkb = {
     layout = "us";
@@ -85,6 +99,7 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
   mihomo
+  xdg-desktop-portal-gtk
   ];
 
   boot.kernelModules = [ "tun" ];

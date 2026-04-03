@@ -12,7 +12,7 @@
       zmodload zsh/complist
 
       # Richer completion defaults without changing the rest of the shell UX.
-      zstyle ':completion:*' completer _extensions _complete _match _prefix _list
+      zstyle '::*' completer _extensions _complete _match _prefix _list
       zstyle ':completion:*' menu select
       zstyle ':completion:*' auto-description 'specify: %d'
       zstyle ':completion:*' completer _complete _ignored

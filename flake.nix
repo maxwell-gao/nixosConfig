@@ -3,6 +3,10 @@
 
   inputs = {
     nixpkgs.url = "git+https://github.com/nixos/nixpkgs?ref=nixos-unstable";
+    noctalia = {
+      url = "git+https://github.com/noctalia-dev/noctalia-shell?ref=main";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
     nix-darwin = {
       url = "git+https://github.com/nix-darwin/nix-darwin?ref=master";
       inputs.nixpkgs.follows = "nixpkgs";
@@ -32,7 +36,7 @@
     };
   };
 
-  outputs = { self, nixpkgs, nix-darwin, nixos-hardware, nixos-wsl, home-manager, codex-cli-nix, nixvim, niri, ... }@inputs:
+  outputs = { self, nixpkgs, noctalia, nix-darwin, nixos-hardware, nixos-wsl, home-manager, codex-cli-nix, nixvim, niri, ... }@inputs:
   let
     standaloneBaseSystem =
       if builtins ? currentSystem then
