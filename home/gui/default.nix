@@ -1,5 +1,14 @@
 { pkgs, inputs, ... }:
 
+let
+  gdk = pkgs.google-cloud-sdk.withExtraComponents (
+    with pkgs.google-cloud-sdk.components;
+    [
+      gke-gcloud-auth-plugin
+    ]
+  );
+in
+
 {
   imports = [
     ./ghostty.nix
@@ -45,6 +54,7 @@
   home.packages = with pkgs; [
     feishu
     foot
+    gdk
     ghostty
     gruvbox-gtk-theme
     gruvbox-plus-icons

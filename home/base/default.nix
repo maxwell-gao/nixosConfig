@@ -1,14 +1,5 @@
 { pkgs, ... }:
 
-let
-  gdk = pkgs.google-cloud-sdk.withExtraComponents (
-    with pkgs.google-cloud-sdk.components;
-    [
-      gke-gcloud-auth-plugin
-    ]
-  );
-in
-
 {
   imports = [
     ./ai.nix
@@ -31,7 +22,6 @@ in
     go
     gopls
     gotools
-    gdk
     jq
     llvm
     llvmPackages.stdenv
