@@ -115,19 +115,10 @@ Install nix:
 sh <(curl --proto '=https' --tlsv1.2 -L https://nixos.org/nix/install) --no-daemon
 ```
 
-Install Home-manager:
+Then:
 
 ```bash
-nix profile add nixpkgs#home-manager --extra-experimental-features 'nix-command flakes'
-```
-
-
-`base` is now exposed directly as a standalone Home Manager target, so on a non-NixOS Linux machine you can apply the shared headless configuration without creating a wrapper host first.
-
-Apply it with:
-
-```bash
-home-manager switch --impure --flake ~/nixosConfig#base --extra-experimental-features "nix-command flakes"
+nix run ~/nixosConfig#homeConfigurations.base.activationPackage --impure
 ```
 
 Why `--impure` is required:
