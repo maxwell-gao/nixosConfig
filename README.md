@@ -109,6 +109,19 @@ This allows the same Home Manager repository to be reused while keeping GUI pack
 
 ## Use `base` On Non-NixOS Machines
 
+Install nix:
+
+```bash
+sh <(curl --proto '=https' --tlsv1.2 -L https://nixos.org/nix/install) --no-daemon
+```
+
+Install Home-manager:
+
+```bash
+nix profile add nixpkgs#home-manager --extra-experimental-features 'nix-command flakes'
+```
+
+
 `base` is now exposed directly as a standalone Home Manager target, so on a non-NixOS Linux machine you can apply the shared headless configuration without creating a wrapper host first.
 
 Apply it with:
