@@ -127,7 +127,7 @@ nix profile add nixpkgs#home-manager --extra-experimental-features 'nix-command 
 Apply it with:
 
 ```bash
-home-manager switch --impure --flake ~/nixosConfig#base
+home-manager switch --impure --flake ~/nixosConfig#base --extra-experimental-features "nix-command flakes"
 ```
 
 Why `--impure` is required:
