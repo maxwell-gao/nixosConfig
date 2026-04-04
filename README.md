@@ -113,6 +113,12 @@ Install nix:
 
 ```bash
 sh <(curl --proto '=https' --tlsv1.2 -L https://nixos.org/nix/install) --no-daemon
+
+# Create nix config directory if it doesn't exist
+mkdir -p ~/.config/nix
+
+# Add experimental features to config
+echo "experimental-features = nix-command flakes" >> ~/.config/nix/nix.conf
 ```
 
 Then:
