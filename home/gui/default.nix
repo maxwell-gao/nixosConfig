@@ -45,7 +45,6 @@
   home.packages = with pkgs; [
     feishu
     foot
-    fuzzel
     ghostty
     gruvbox-gtk-theme
     gruvbox-plus-icons
@@ -55,6 +54,7 @@
     wl-clipboard
     wtype
     vscode
+    zathura
     zed-editor
     zotero
   ];

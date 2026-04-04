@@ -45,6 +45,7 @@ in
     clippy
     rustfmt
     texlive.combined.scheme-full
+    tmux
     unzip
     opencode
     uv

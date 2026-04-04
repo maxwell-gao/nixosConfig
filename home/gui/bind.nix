@@ -33,8 +33,20 @@
     "Mod+Shift+J".action = move-window-down;
 
     # Consume/Expel
-    "Mod+Comma".action = consume-window-into-column;
+    "Mod+Semicolon".action = consume-window-into-column;
     "Mod+Period".action = expel-window-from-column;
+
+    # Noctalia Core
+    "Mod+Space".action.spawn = [ "noctalia-shell" "ipc" "call" "launcher" "toggle" ];
+    "Mod+S".action.spawn = [ "noctalia-shell" "ipc" "call" "controlCenter" "toggle" ];
+    "Mod+Comma".action.spawn = [ "noctalia-shell" "ipc" "call" "settings" "toggle" ];
+
+    # Media keys
+    "XF86AudioRaiseVolume".action.spawn = [ "noctalia-shell" "ipc" "call" "volume" "increase" ];
+    "XF86AudioLowerVolume".action.spawn = [ "noctalia-shell" "ipc" "call" "volume" "decrease" ];
+    "XF86AudioMute".action.spawn = [ "noctalia-shell" "ipc" "call" "volume" "muteOutput" ];
+    "XF86MonBrightnessUp".action.spawn = [ "noctalia-shell" "ipc" "call" "brightness" "increase" ];
+    "XF86MonBrightnessDown".action.spawn = [ "noctalia-shell" "ipc" "call" "brightness" "decrease" ];
 
     # Column width
     "Mod+R".action = switch-preset-column-width;
