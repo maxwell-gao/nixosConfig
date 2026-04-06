@@ -52,6 +52,7 @@ in
   };
 
   home.packages = with pkgs; [
+    cliphist
     feishu
     foot
     gdk
