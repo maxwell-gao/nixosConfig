@@ -63,6 +63,9 @@
   services.gvfs.enable = true;
   services.udisks2.enable = true;
   services.upower.enable = true;
+  services.thermald.enable = true;
+
+  powerManagement.powertop.enable = true;
 
   programs.seahorse.enable = true;
 
@@ -117,7 +120,8 @@
     xwayland-satellite
   ];
 
-  boot.kernelModules = [ "tun" ];
+  boot.kernelModules = [ "tun" "acpi_call" ];
+  boot.extraModulePackages = with config.boot.kernelPackages; [ acpi_call ];
 
   programs.clash-verge = {
     enable = true;
