@@ -79,6 +79,23 @@
       };
 
       nixosConfigurations = {
+        studio502 = nixpkgs.lib.nixosSystem {
+          system = "x86_64-linux";
+          specialArgs = { inherit inputs; };
+          modules = [
+            ./hosts/studio502/configuration.nix
+            niri.nixosModules.niri
+            home-manager.nixosModules.home-manager
+            {
+              home-manager.useGlobalPkgs = true;
+              home-manager.useUserPackages = true;
+              home-manager.backupFileExtension = "hm-backup";
+              home-manager.extraSpecialArgs = { inherit inputs; };
+              home-manager.users.max = import ./hosts/studio502/home.nix;
+            }
+          ];
+        };
+
         thinkpad-x1c13 = nixpkgs.lib.nixosSystem {
           system = "x86_64-linux";
           specialArgs = { inherit inputs; };
