@@ -12,6 +12,7 @@ in
 {
   imports = [
     ./ghostty.nix
+    ./ime.nix
     ./niri.nix
     inputs.noctalia.homeModules.default
   ];
