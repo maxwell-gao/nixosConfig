@@ -1,4 +1,4 @@
-{ ... }:
+{ pkgs, ... }:
 
 {
   imports = [
@@ -17,7 +17,11 @@
 
   boot.kernelParams = [
     "video=HDMI-A-1:d"
+    "video=DP-2:3840x2160@60"
   ];
+
+  console.font = "ter-v32n";
+  console.packages = [ pkgs.terminus_font ];
 
   networking.hostName = "studio502";
   networking.networkmanager.enable = true;

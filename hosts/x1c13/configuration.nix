@@ -30,6 +30,8 @@
     options = "ctrl:nocaps";
   };
 
+  services.displayManager.ly.settings.battery_id = "BAT0";
+
   security.polkit.enable = true;
   services.gnome.gnome-keyring.enable = true;
   services.gvfs.enable = true;

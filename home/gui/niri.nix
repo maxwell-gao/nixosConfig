@@ -10,6 +10,27 @@
 
     hotkey-overlay.hide-not-bound = true;
 
+    spawn-at-startup = [
+      {
+        command = [
+          "systemctl"
+          "--user"
+          "restart"
+          "xdg-desktop-portal-gnome.service"
+          "xdg-desktop-portal-gtk.service"
+          "xdg-desktop-portal.service"
+        ];
+      }
+      {
+        command = [
+          "systemctl"
+          "--user"
+          "restart"
+          "app-org.fcitx.Fcitx5@autostart.service"
+        ];
+      }
+    ];
+
     layout = {
       gaps = 16;
 
