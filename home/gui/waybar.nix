@@ -27,16 +27,9 @@ let
     height = 34;
     spacing = 4;
 
-    modules-left = [ "custom/nix" "niri/workspaces" ];
+    modules-left = [ "niri/workspaces" ];
     modules-center = [ "wlr/taskbar" ];
     modules-right = modules-right;
-
-    "custom/nix" = {
-      exec = "echo '${glyphs.nixos}'";
-      format = "{}";
-      tooltip = false;
-      interval = "once";
-    };
 
     "niri/workspaces" = {
       all-outputs = true;
@@ -49,7 +42,6 @@ let
       icon-size = 16;
       tooltip = true;
       tooltip-format = "{title}";
-      active-first = true;
       on-click = "activate";
       on-click-middle = "close";
       on-click-right = "minimize";

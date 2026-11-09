@@ -65,7 +65,6 @@ button {
     background-color: #b16286;
 }
 
-#custom-nix,
 #taskbar,
 #idle_inhibitor,
 #clock,
@@ -78,18 +77,15 @@ button {
     padding: 0 10px;
 }
 
-#custom-nix {
-    background-color: #282828;
-    color: #83a598;
-}
-
 #taskbar {
     background-color: #3c3836;
     color: #ebdbb2;
+    padding: 0 4px;
 }
 
 #taskbar button {
     padding: 0 5px;
+    margin: 0 3px;
     background-color: transparent;
     color: #ebdbb2;
     border-radius: 5px;
