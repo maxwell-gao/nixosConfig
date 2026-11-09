@@ -1,4 +1,4 @@
-{ pkgs, inputs, ... }:
+{ pkgs, ... }:
 
 let
   gdk = pkgs.google-cloud-sdk.withExtraComponents (
@@ -12,48 +12,16 @@ in
 {
   imports = [
     ./feishu.nix
+    ./fuzzel.nix
     ./ghostty.nix
     ./ime.nix
+    ./mako.nix
     ./niri.nix
-    inputs.noctalia.homeModules.default
+    ./waybar.nix
   ];
 
-  programs.noctalia-shell = {
-    enable = true;
-    systemd.enable = true;
-
-    settings = {
-      general = {
-        animationSpeed = 1.2;
-        radiusRatio = 1.1;
-        telemetryEnabled = false;
-      };
-
-      bar = {
-        position = "top";
-        floating = true;
-        backgroundOpacity = 0.92;
-      };
-
-      dock = {
-        enabled = true;
-        position = "bottom";
-      };
-
-      desktopWidgets = {
-        enabled = false;
-      };
-
-      colorSchemes = {
-        darkMode = true;
-        useWallpaperColors = false;
-        predefinedScheme = "Gruvbox";
-        syncGsettings = true;
-      };
-    };
-  };
-
   home.packages = with pkgs; [
+    brightnessctl
     cliphist
     foot
     gdk

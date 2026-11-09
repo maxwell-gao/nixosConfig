@@ -25,9 +25,14 @@ Maxwell's multi-host NixOS flake repository, currently containing:
 │   └── gui
 │       ├── bind.nix
 │       ├── default.nix
+│       ├── feishu.nix
+│       ├── fuzzel.nix
 │       ├── ghostty.nix
 │       ├── ime.nix
-│       └── niri.nix
+│       ├── mako.nix
+│       ├── niri.nix
+│       ├── waybar.nix
+│       └── waybar-style.css
 ├── modules
 │   └── nixos
 │       ├── common.nix
@@ -39,7 +44,8 @@ Maxwell's multi-host NixOS flake repository, currently containing:
     ├── studio502
     │   ├── configuration.nix
     │   ├── hardware-configuration.nix
-    │   └── home.nix
+    │   ├── home.nix
+    │   └── niri-outputs.nix
     ├── wsl
     │   ├── configuration.nix
     │   └── home.nix
@@ -67,7 +73,6 @@ To reduce the impact of GitHub API rate limits on `nix flake` as much as possibl
 Current top-level inputs:
 
 - `nixpkgs`
-- `noctalia`
 - `nix-darwin`
 - `nixos-hardware`
 - `nixos-wsl`

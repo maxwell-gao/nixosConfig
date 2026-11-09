@@ -62,17 +62,15 @@
     "Mod+Semicolon".action = consume-window-into-column;
     "Mod+Period".action = expel-window-from-column;
 
-    # Noctalia Core
-    "Mod+Space".action.spawn = [ "noctalia-shell" "ipc" "call" "launcher" "toggle" ];
-    "Mod+S".action.spawn = [ "noctalia-shell" "ipc" "call" "controlCenter" "toggle" ];
-    "Mod+Comma".action.spawn = [ "noctalia-shell" "ipc" "call" "settings" "toggle" ];
+    # Launcher
+    "Mod+Space".action.spawn = [ "fuzzel" ];
 
     # Media keys
-    "XF86AudioRaiseVolume".action.spawn = [ "noctalia-shell" "ipc" "call" "volume" "increase" ];
-    "XF86AudioLowerVolume".action.spawn = [ "noctalia-shell" "ipc" "call" "volume" "decrease" ];
-    "XF86AudioMute".action.spawn = [ "noctalia-shell" "ipc" "call" "volume" "muteOutput" ];
-    "XF86MonBrightnessUp".action.spawn = [ "noctalia-shell" "ipc" "call" "brightness" "increase" ];
-    "XF86MonBrightnessDown".action.spawn = [ "noctalia-shell" "ipc" "call" "brightness" "decrease" ];
+    "XF86AudioRaiseVolume".action.spawn = [ "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "5%+" ];
+    "XF86AudioLowerVolume".action.spawn = [ "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "5%-" ];
+    "XF86AudioMute".action.spawn = [ "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle" ];
+    "XF86MonBrightnessUp".action.spawn = [ "brightnessctl" "set" "5%+" ];
+    "XF86MonBrightnessDown".action.spawn = [ "brightnessctl" "set" "5%-" ];
 
     # Column width
     "Mod+R".action = switch-preset-column-width;
