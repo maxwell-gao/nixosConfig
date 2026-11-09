@@ -12,9 +12,12 @@
 
   home.packages = with pkgs; [
     bottom
+    cargo
+    clippy
     cmake
     delve
     direnv
+    fastfetch
     gcc
     gh
     git
@@ -23,24 +26,19 @@
     gopls
     gotools
     jq
-    llvm
-    llvmPackages.stdenv
     lazygit
-    pandoc
+    llvm
     nh
-    fastfetch
+    pandoc
+    ripgrep
     rust-analyzer
     rustc
-    cargo
-    clippy
     rustfmt
     texlive.combined.scheme-full
     tmux
     unzip
-    opencode
     uv
     wget
-    ripgrep
     yazi
     zellij
   ];
