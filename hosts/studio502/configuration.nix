@@ -44,6 +44,22 @@
 
   services.libinput.enable = true;
 
+  services.keyd = {
+    enable = true;
+
+    keyboards.default = {
+      ids = [
+        "*"
+        "-0853:*"
+      ];
+
+      settings.main = {
+        leftcontrol = "leftmeta";
+        capslock = "leftcontrol";
+      };
+    };
+  };
+
   services.openssh.enable = true;
 
   system.stateVersion = "25.05";
