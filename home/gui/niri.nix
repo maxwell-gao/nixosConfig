@@ -3,7 +3,6 @@
 {
   imports = [
     ./bind.nix
-    ./outputs.nix
   ];
 
   programs.niri.settings = {

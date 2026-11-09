@@ -3,11 +3,7 @@
 {
   programs.niri.settings.outputs = {
     "HDMI-A-1" = {
-      scale = 1;
-      position = {
-        x = 0;
-        y = 0;
-      };
+      enable = false;
     };
 
     "DP-3" = {

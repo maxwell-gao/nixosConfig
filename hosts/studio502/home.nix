@@ -3,6 +3,7 @@
 {
   imports = [
     ../../home
+    ./niri-outputs.nix
   ];
 
   home.username = "max";
