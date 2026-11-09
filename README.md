@@ -2,6 +2,7 @@
 
 Maxwell's multi-host NixOS flake repository, currently containing:
 
+- `studio502`: physical desktop configuration
 - `thinkpad-x1c13`: physical laptop configuration
 - `nixos-wsl`: WSL configuration
 - `darwin`: nix-darwin skeleton for macOS hosts
@@ -13,13 +14,31 @@ Maxwell's multi-host NixOS flake repository, currently containing:
 ├── flake.nix
 ├── flake.lock
 ├── home
-│   ├── base.nix
-│   ├── default.nix
+│   ├── base
+│   │   ├── ai.nix
+│   │   ├── default.nix
+│   │   ├── nvim/
+│   │   ├── rebuild.nix
+│   │   └── shell/
 │   ├── darwin.nix
-│   └── gui.nix
+│   ├── default.nix
+│   └── gui
+│       ├── bind.nix
+│       ├── default.nix
+│       ├── ghostty.nix
+│       ├── ime.nix
+│       └── niri.nix
+├── modules
+│   └── nixos
+│       ├── common.nix
+│       └── desktop.nix
 └── hosts
     ├── darwin
     │   ├── configuration.nix
+    │   └── home.nix
+    ├── studio502
+    │   ├── configuration.nix
+    │   ├── hardware-configuration.nix
     │   └── home.nix
     ├── wsl
     │   ├── configuration.nix
@@ -32,12 +51,14 @@ Maxwell's multi-host NixOS flake repository, currently containing:
 
 ## Design Notes
 
-- `home/base.nix` contains shared headless/base Home Manager configuration
-- `home/gui.nix` contains Linux GUI-oriented packages and environment variables
+- `modules/nixos/common.nix` contains Nix settings shared by all NixOS hosts
+- `modules/nixos/desktop.nix` contains the shared graphical stack (Niri, SDDM, portals, PipeWire, fcitx5, fonts, Firefox, Zsh, and the `max` user) imported by GUI hosts
+- `home/base/default.nix` contains the shared headless/CLI Home Manager configuration
+- `home/gui/default.nix` contains Linux GUI-oriented packages and environment variables
 - `home/darwin.nix` is reserved for Darwin-specific Home Manager additions
 - `home/default.nix` composes `base + gui` for GUI-capable Linux machines
 - Each host-specific `hosts/<name>/home.nix` only contains user identity and a small amount of host-specific differences
-- Each host-specific `hosts/<name>/configuration.nix` contains system-level configuration
+- Each host-specific `hosts/<name>/configuration.nix` contains only hardware, boot, networking, locale, and other host-specific system configuration
 
 ## Flake Input Strategy
 
@@ -46,9 +67,14 @@ To reduce the impact of GitHub API rate limits on `nix flake` as much as possibl
 Current top-level inputs:
 
 - `nixpkgs`
-- `home-manager`
+- `noctalia`
+- `nix-darwin`
 - `nixos-hardware`
 - `nixos-wsl`
+- `home-manager`
+- `codex-cli-nix`
+- `nixvim`
+- `niri`
 
 Note: one of `nixos-wsl`'s upstream dependencies is `flake-compat`, which is defined by that upstream project and still appears as a `github` type. The top-level inputs in this repository have already been unified, but this kind of transitive dependency cannot be fully removed without overriding the upstream dependency graph.
 
@@ -58,6 +84,12 @@ When using this on a new machine for the first time, if flakes are not enabled y
 
 ```bash
 NIX_CONFIG="experimental-features = nix-command flakes" sudo nixos-rebuild switch --flake ~/nixosConfig#thinkpad-x1c13
+```
+
+Studio502:
+
+```bash
+sudo nixos-rebuild switch --flake ~/nixosConfig#studio502
 ```
 
 ThinkPad:
@@ -94,16 +126,16 @@ nix flake check
 
 The shared configuration is split by capability:
 
-- `home/base.nix`: common CLI/development tools and shell setup for headless systems, WSL, and servers
-- `home/gui.nix`: Linux GUI packages for desktop/laptop machines
-- `home/darwin.nix`: a Darwin-specific layer for future macOS hosts; currently reserved and not yet wired into `nix-darwin`
-- `home/default.nix`: the default GUI Linux composition used by the laptop host
+- `home/base/default.nix`: common CLI/development tools and shell setup for headless systems, WSL, and servers
+- `home/gui/default.nix`: Linux GUI packages for desktop/laptop machines
+- `home/darwin.nix`: a Darwin-specific layer for future macOS hosts
+- `home/default.nix`: the default GUI Linux composition used by the laptop and desktop hosts
 
 Examples of the host-specific wrappers:
 
-- `hosts/x1c13/home.nix` imports `../../home` to get `base + gui`
-- `hosts/wsl/home.nix` imports `../../home/base.nix` to stay headless
-- `hosts/darwin/home.nix` imports `../../home/base.nix` and `../../home/darwin.nix`
+- `hosts/x1c13/home.nix` and `hosts/studio502/home.nix` import `../../home` to get `base + gui`
+- `hosts/wsl/home.nix` imports `../../home/base/default.nix` to stay headless
+- `hosts/darwin/home.nix` imports `../../home/base/default.nix` and `../../home/darwin.nix`
 
 This allows the same Home Manager repository to be reused while keeping GUI packages off WSL and server-style hosts.
 

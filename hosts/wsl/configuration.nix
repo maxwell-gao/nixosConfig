@@ -1,9 +1,9 @@
 { pkgs, ... }:
 
 {
-  nixpkgs.config.allowUnfree = true;
-
-  nix.settings.experimental-features = [ "nix-command" "flakes" ];
+  imports = [
+    ../../modules/nixos/common.nix
+  ];
 
   wsl.enable = true;
   wsl.defaultUser = "nixos";
@@ -21,8 +21,6 @@
     isNormalUser = true;
     shell = pkgs.zsh;
   };
-
-  hardware.bluetooth.enable = false;
 
   system.stateVersion = "25.05";
 }
