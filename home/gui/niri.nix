@@ -8,6 +8,8 @@
   programs.niri.settings = {
     prefer-no-csd = true;
 
+    hotkey-overlay.hide-not-bound = true;
+
     layout = {
       gaps = 16;
 
