@@ -17,6 +17,7 @@ in
     ./ime.nix
     ./mako.nix
     ./niri.nix
+    ./wallpaper.nix
     ./waybar.nix
   ];
 
