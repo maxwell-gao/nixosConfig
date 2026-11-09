@@ -16,7 +16,10 @@
   };
 
   services.xserver.enable = true;
-  services.displayManager.sddm.enable = true;
+  services.displayManager = {
+    defaultSession = "niri";
+    ly.enable = true;
+  };
   programs.niri.enable = true;
 
   xdg.portal = {
