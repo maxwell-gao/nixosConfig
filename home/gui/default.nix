@@ -11,6 +11,7 @@ in
 
 {
   imports = [
+    ./feishu.nix
     ./ghostty.nix
     ./ime.nix
     ./niri.nix
@@ -54,7 +55,6 @@ in
 
   home.packages = with pkgs; [
     cliphist
-    feishu
     foot
     gdk
     ghostty
