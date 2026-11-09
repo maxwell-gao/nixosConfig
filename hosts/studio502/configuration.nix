@@ -15,6 +15,10 @@
   boot.loader.grub.device = "/dev/nvme0n1";
   boot.loader.grub.useOSProber = true;
 
+  boot.kernelParams = [
+    "video=HDMI-A-1:d"
+  ];
+
   networking.hostName = "studio502";
   networking.networkmanager.enable = true;
   networking.networkmanager.wifi.backend = "iwd";
