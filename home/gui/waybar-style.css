@@ -65,8 +65,9 @@ button {
     background-color: #b16286;
 }
 
+#custom-nix,
+#taskbar,
 #idle_inhibitor,
-#window,
 #clock,
 #battery,
 #backlight,
@@ -77,9 +78,35 @@ button {
     padding: 0 10px;
 }
 
-#window {
+#custom-nix {
+    background-color: #282828;
+    color: #83a598;
+}
+
+#taskbar {
     background-color: #3c3836;
     color: #ebdbb2;
+}
+
+#taskbar button {
+    padding: 0 5px;
+    background-color: transparent;
+    color: #ebdbb2;
+    border-radius: 5px;
+}
+
+#taskbar button.active {
+    background-color: #504945;
+    color: #fbf1c7;
+}
+
+#taskbar button:hover {
+    background-color: #665c54;
+}
+
+#taskbar button.urgent {
+    background-color: #cc241d;
+    color: #fbf1c7;
 }
 
 #mpris {

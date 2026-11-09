@@ -27,18 +27,32 @@ let
     height = 34;
     spacing = 4;
 
-    modules-left = [ "niri/workspaces" ];
-    modules-center = [ "niri/window" ];
+    modules-left = [ "custom/nix" "niri/workspaces" ];
+    modules-center = [ "wlr/taskbar" ];
     modules-right = modules-right;
+
+    "custom/nix" = {
+      exec = "echo '${glyphs.nixos}'";
+      format = "{}";
+      tooltip = false;
+      interval = "once";
+    };
 
     "niri/workspaces" = {
       all-outputs = true;
       format = "{value}";
     };
 
-    "niri/window" = {
-      format = "{title}";
-      separate-outputs = true;
+    "wlr/taskbar" = {
+      all-outputs = false;
+      format = "{icon} {title}";
+      icon-size = 16;
+      tooltip = true;
+      tooltip-format = "{title}";
+      active-first = true;
+      on-click = "activate";
+      on-click-middle = "close";
+      on-click-right = "minimize";
     };
 
     mpris = {
