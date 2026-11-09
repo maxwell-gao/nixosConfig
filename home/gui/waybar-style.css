@@ -75,12 +75,60 @@ button {
 #mpris,
 #load {
     padding: 0 10px;
-    background-color: #282828;
+}
+
+#window {
+    background-color: #3c3836;
+    color: #ebdbb2;
+}
+
+#mpris {
+    background-color: #b16286;
+    color: #fbf1c7;
+}
+
+#idle_inhibitor {
+    background-color: #504945;
+    color: #ebdbb2;
+}
+
+#idle_inhibitor.activated {
+    background-color: #d65d0e;
+    color: #fbf1c7;
+}
+
+#load {
+    background-color: #458588;
+    color: #fbf1c7;
+}
+
+#wireplumber {
+    background-color: #689d6a;
+    color: #fbf1c7;
+}
+
+#backlight {
+    background-color: #d79921;
+    color: #282828;
+}
+
+#battery {
+    background-color: #98971a;
+    color: #fbf1c7;
+}
+
+#clock {
+    background-color: #d65d0e;
+    color: #fbf1c7;
+}
+
+#tray {
+    background-color: #3c3836;
     color: #ebdbb2;
 }
 
 #battery.charging, #battery.plugged {
-    background-color: #98971a;
+    background-color: #b8bb26;
     color: #282828;
 }
 
@@ -93,7 +141,7 @@ button {
 
 #battery.critical:not(.charging) {
     background-color: #cc241d;
-    color: #ebdbb2;
+    color: #fbf1c7;
     animation-name: blink;
     animation-duration: 0.5s;
     animation-timing-function: steps(12);
@@ -106,7 +154,8 @@ label:focus {
 }
 
 #wireplumber.muted {
-    background-color: #458588;
+    background-color: #cc241d;
+    color: #fbf1c7;
 }
 
 #tray > .passive {
@@ -118,7 +167,7 @@ label:focus {
 }
 
 #mpris.playing {
-    background-color: #d79921;
+    background-color: #fe8019;
     color: #282828;
 }
 

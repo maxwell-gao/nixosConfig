@@ -24,7 +24,7 @@ let
     output = [ output ];
     layer = "top";
     position = "top";
-    height = 24;
+    height = 34;
     spacing = 4;
 
     modules-left = [ "niri/workspaces" ];
@@ -33,17 +33,7 @@ let
 
     "niri/workspaces" = {
       all-outputs = true;
-      format = "{icon}";
-      format-icons = {
-        "1" = glyphs.terminal;
-        "2" = glyphs.message;
-        "3" = glyphs.web;
-        "4" = glyphs.email;
-        "5" = glyphs.code;
-        "9" = glyphs.dots;
-        "10" = glyphs.music;
-        "default" = glyphs.circle_outline;
-      };
+      format = "{value}";
     };
 
     "niri/window" = {
