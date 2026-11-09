@@ -3,6 +3,7 @@
 {
   imports = [
     ./ai.nix
+    ./git.nix
     ./nvim
     ./rebuild.nix
     ./shell
@@ -20,7 +21,6 @@
     fastfetch
     gcc
     gh
-    git
     gnumake
     go
     gopls
