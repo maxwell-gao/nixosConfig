@@ -21,38 +21,38 @@
     "Mod+K".action = focus-window-up;
     "Mod+J".action = focus-window-down;
 
-    # Monitor focus
-    "Mod+Shift+Left".action = focus-monitor-left;
-    "Mod+Shift+Right".action = focus-monitor-right;
-    "Mod+Shift+Up".action = focus-monitor-up;
-    "Mod+Shift+Down".action = focus-monitor-down;
+    # Move the focused window to another monitor
+    "Mod+Shift+Left".action = move-window-to-monitor-left;
+    "Mod+Shift+Right".action = move-window-to-monitor-right;
+    "Mod+Shift+Up".action = move-window-to-monitor-up;
+    "Mod+Shift+Down".action = move-window-to-monitor-down;
 
-    "Mod+Shift+H".action = focus-monitor-left;
-    "Mod+Shift+L".action = focus-monitor-right;
-    "Mod+Shift+K".action = focus-monitor-up;
-    "Mod+Shift+J".action = focus-monitor-down;
+    "Mod+Shift+H".action = move-window-to-monitor-left;
+    "Mod+Shift+L".action = move-window-to-monitor-right;
+    "Mod+Shift+K".action = move-window-to-monitor-up;
+    "Mod+Shift+J".action = move-window-to-monitor-down;
 
     # Window movement within the layout
-    "Mod+Ctrl+Left".action = move-column-left;
-    "Mod+Ctrl+Right".action = move-column-right;
-    "Mod+Ctrl+Up".action = move-window-up;
-    "Mod+Ctrl+Down".action = move-window-down;
+    "Mod+Alt+Left".action = move-column-left;
+    "Mod+Alt+Right".action = move-column-right;
+    "Mod+Alt+Up".action = move-window-up;
+    "Mod+Alt+Down".action = move-window-down;
 
-    "Mod+Ctrl+H".action = move-column-left;
-    "Mod+Ctrl+L".action = move-column-right;
-    "Mod+Ctrl+K".action = move-window-up;
-    "Mod+Ctrl+J".action = move-window-down;
+    "Mod+Alt+H".action = move-column-left;
+    "Mod+Alt+L".action = move-column-right;
+    "Mod+Alt+K".action = move-window-up;
+    "Mod+Alt+J".action = move-window-down;
 
-    # Move the focused window to another monitor
-    "Mod+Ctrl+Shift+Left".action = move-window-to-monitor-left;
-    "Mod+Ctrl+Shift+Right".action = move-window-to-monitor-right;
-    "Mod+Ctrl+Shift+Up".action = move-window-to-monitor-up;
-    "Mod+Ctrl+Shift+Down".action = move-window-to-monitor-down;
+    # Monitor focus
+    "Mod+Alt+Shift+Left".action = focus-monitor-left;
+    "Mod+Alt+Shift+Right".action = focus-monitor-right;
+    "Mod+Alt+Shift+Up".action = focus-monitor-up;
+    "Mod+Alt+Shift+Down".action = focus-monitor-down;
 
-    "Mod+Ctrl+Shift+H".action = move-window-to-monitor-left;
-    "Mod+Ctrl+Shift+L".action = move-window-to-monitor-right;
-    "Mod+Ctrl+Shift+K".action = move-window-to-monitor-up;
-    "Mod+Ctrl+Shift+J".action = move-window-to-monitor-down;
+    "Mod+Alt+Shift+H".action = focus-monitor-left;
+    "Mod+Alt+Shift+L".action = focus-monitor-right;
+    "Mod+Alt+Shift+K".action = focus-monitor-up;
+    "Mod+Alt+Shift+J".action = focus-monitor-down;
 
     # Floating windows
     "Mod+V".action = toggle-window-floating;
