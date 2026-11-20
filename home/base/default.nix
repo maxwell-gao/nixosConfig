@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ lib, pkgs, ... }:
 
 {
   imports = [
@@ -31,6 +31,8 @@
     nh
     pandoc
     ripgrep
+    # `gotools` also ships a `bundle` binary; prefer Ruby's Bundler.
+    (lib.hiPrio ruby)
     rust-analyzer
     rustc
     rustfmt
